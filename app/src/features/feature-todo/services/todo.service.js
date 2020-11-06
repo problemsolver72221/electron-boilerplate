@@ -1,10 +1,9 @@
 // import { runQuery } from '@forrestjs/feature-network'
 // import queries from './graphql'
 
-import { setList, toggleSomething } from '../reducers/todo.reducer'
+import { setList } from '../reducers/todo.reducer'
 
 export const getTodos = () => async (dispatch) => {
-    console.log('hi')
     // const res = await dispatch(runQuery(queries.getTodos))
     // console.log('res?', res)
     const todos = [
@@ -25,26 +24,27 @@ export const getTodos = () => async (dispatch) => {
 }
 
 export const addTodo = (val) => async (dispatch, getState) => {
-    console.log('val here', val)
     const { todos } = getState()
-    // console.log('todos here!', todos)
     const newTodos = [...todos.list, val]
-    // console.log('new ones', newTodos)
     dispatch(setList(newTodos))
 }
 
-export const updateTodo = (val) => async (dispatch, getState) => {
-    console.log('val here', val)
+export const updateTodo = (todoId, newVal) => async (dispatch, getState) => {
     const { todos } = getState()
-    // console.log('todos here!', todos)
-    const newTodos = [...todos.list, val]
-    // console.log('new ones', newTodos)
+
+    const newTodos = todos.list.map(item =>
+        (item.todo_id === todoId)
+            ? { ...item, description: newVal }
+            : item
+    )
+
     dispatch(setList(newTodos))
 }
 
-export const toggleValue = (val) => async (dispatch) => {
-    console.log('val here', val)
-    dispatch(toggleSomething(val))
+export const deleteTodo = (todoId) => async (dispatch, getState) => {
+    const { todos } = getState()
+    const newTodos = todos.list.filter(item => item.todo_id !== todoId)
+    dispatch(setList(newTodos))
 }
 
 // export const deleteTodo = (todoId) => async (dispatch, getState) => {

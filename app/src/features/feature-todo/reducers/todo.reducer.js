@@ -1,6 +1,5 @@
 export const initialState = {
     list: [],
-    isOn: false,
 }
 
 /**
@@ -8,16 +7,10 @@ export const initialState = {
  */
 
 export const SET_LIST = 'setList@todos'
-export const SET_TOGGLE = 'setToggle@todos'
 
 export const setList = (todos) => ({
     type: SET_LIST,
     payload: { todos },
-})
-
-export const toggleSomething = (val) => ({
-    type: SET_TOGGLE,
-    payload: { val },
 })
 
 /**
@@ -28,11 +21,6 @@ export const actionHandlers = {
     [SET_LIST]: (state, { payload }) => ({
         ...state,
         list: payload.todos,
-    }),
-    [SET_TOGGLE]: (state, { payload }) => ({
-        ...state,
-        // ...state.todos,
-        isOn: payload.val,
     }),
 }
 

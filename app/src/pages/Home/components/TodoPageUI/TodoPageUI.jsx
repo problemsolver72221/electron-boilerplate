@@ -13,7 +13,6 @@ const styles = getStyles()
 
 class TodoPageUI extends React.PureComponent {
     state = {
-        list: [],
         inputValue: '',
         errorMsg: null,
         // edit related
@@ -33,7 +32,6 @@ class TodoPageUI extends React.PureComponent {
 
     handleAdd = (val) => {
         const { onAddTodo } = this.props
-        // const { list } = this.state
 
         if (val.length === 0) return this.setState({ errorMsg: 'Please enter at least one character' })
 
@@ -43,53 +41,42 @@ class TodoPageUI extends React.PureComponent {
         }
 
         onAddTodo(todo)
-
-        // const newList = [...list, todo]
-        // this.setState({ list: newList, inputValue: '' })
         this.setState({ inputValue: '' })
     }
 
-    handleDelete = (todoId) => {
-        console.log('delete this:', todoId)
-        const { list } = this.state
-        const newList = list.filter(item => item.todo_id !== todoId)
-        this.setState({ list: newList })
-    }
-
     handleEditModal = (todoId) => {
-        console.log('handle modal with todoId:', todoId)
-        // const { list } = this.state
-        // const selectedTodo = list.filter(item => item.todo_id === todoId)
-        // this.setState({ editModal: true, editTodoId: todoId, editInputValue: selectedTodo[0].description })
-        // console.log(this.state)
+        // Prepare modal for update function
+        // 1 - pick the item to be updated
+        const { list } = this.props
+        const selectedTodo = list.filter(item => item.todo_id === todoId)
+        // 2 - set the state for modal display
+        this.setState({
+            editModal: true,
+            editTodoId: todoId,
+            editInputValue: selectedTodo[0].description,
+        })
     }
 
     handleTodoUpdate = (val) => {
-        return console.log('update this one', val)
-        const { list, editTodoId } = this.state
+        // import service
+        const { editTodoId } = this.state
+        const { onUpdateTodo } = this.props
 
         if (val.length === 0) return this.setState({ editErrorMsg: 'Please enter at least one character' })
 
-        console.log(list, editTodoId)
-        console.log('new val will be: ', val)
+        // update the todo and close modal
+        onUpdateTodo(editTodoId, val)
+        this.setState({ editModal: false })
+    }
 
-        // get the todoId.
-        // map through the existing list.
-
-        const newList = list.map(item => (item.todo_id === editTodoId) ? { ...item, description: val } : item)
-        this.setState({ list: newList, editModal: false })
-        // const todo = {
-        //     todo_id: randomIdGenerator(),
-        //     description: val,
-        // }
-
-        // const newList = [...list, todo]
-        // this.setState({ list: newList, inputValue: '' })
+    handleDelete = (todoId) => {
+        const { onDeleteTodo } = this.props
+        onDeleteTodo(todoId)
     }
 
     render () {
-        const { list, editModal, errorMsg, inputValue, editInputValue, editErrorMsg } = this.state
-        const { data } = this.props
+        const { editModal, errorMsg, inputValue, editInputValue, editErrorMsg } = this.state
+        const { list } = this.props
         return (
             <div style={styles.wrapper}>
                 <Modal
@@ -122,8 +109,7 @@ class TodoPageUI extends React.PureComponent {
                 <div>
                     <h2>Todo list</h2>
                     <TodoListUI
-                        // data={list}
-                        data={data}
+                        data={list}
                         onOpen={(todoId) => console.log('open', todoId)}
                         onDelete={this.handleDelete}
                         onEdit={this.handleEditModal}
@@ -134,11 +120,6 @@ class TodoPageUI extends React.PureComponent {
     }
 }
 
-// const TodoPageUI = ({ title }) => (
-//     <div style={styles.wrapper}>
-//         <p>{title}</p>
-//     </div>
-// )
 
 TodoPageUI.propTypes = {
     title: PropTypes.string,

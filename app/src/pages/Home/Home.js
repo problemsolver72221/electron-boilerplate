@@ -2,19 +2,24 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { getTodos, addTodo, toggleValue } from '../../features/feature-todo/services/todo.service'
+import {
+    getTodos,
+    addTodo,
+    updateTodo,
+    deleteTodo,
+} from '../../features/feature-todo/services/todo.service'
 
 import TodoPageUI from './components/TodoPageUI'
 
 const mapState = ({ todos }) => ({
     list: todos.list,
-    isOn: todos.isOn,
 })
 
 const mapDispatch = (dispatch) => ({
     getTodos: () => dispatch(getTodos()),
     addTodo: (todo) => dispatch(addTodo(todo)),
-    toggleValue: (val) => dispatch(toggleValue(val))
+    updateTodo: (todoId, newVal) => dispatch(updateTodo(todoId, newVal)),
+    deleteTodo: (todoId) => dispatch(deleteTodo(todoId)),
     // openTodo: todoId => dispatch({
     //     type: '@open::todos::todo-page',
     //     todoId: todoId,
@@ -26,8 +31,7 @@ class Home extends Component {
         try {
             const { getTodos } = this.props
             this.setState({ isLoading: true })
-            const dos = await getTodos()
-            console.log(dos)
+            await getTodos()
             this.setState({
                 isLoading: false,
             })
@@ -40,24 +44,18 @@ class Home extends Component {
         isLoading: false,
     }
 
-    handleToggle = () => {
-        const { isOn } = this.props
-        this.props.toggleValue(!isOn)
-    }
-
     render() {
-        const { list, isOn, addTodo } = this.props
-        console.log(list)
+        const { list, addTodo, updateTodo, deleteTodo } = this.props
         return (
             <div style={{ padding: 15 }}>
                 <h2>Todo list</h2>
                 <TodoPageUI
-                    data={list}
+                    list={list}
                     onOpen={() => console.log('hi')}
                     onAddTodo={addTodo}
+                    onUpdateTodo={updateTodo}
+                    onDeleteTodo={deleteTodo}
                 />
-                <p>Toggle value: {isOn ? 'on' : 'off'}</p>
-                <button onClick={this.handleToggle}>Toggle</button>
             </div>
         )
     }
