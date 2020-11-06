@@ -7,6 +7,7 @@
   "homepage": "./",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^5.8.0",
     "@forrestjs/core": "^3.19.0",
     "@forrestjs/feature-network": "^3.19.0",
     "@forrestjs/feature-storage": "^3.19.0",
@@ -16,6 +17,7 @@
     "cross-env": "^7.0.2",
     "electron-is-dev": "1.2.0",
     "electron-squirrel-startup": "^1.0.0",
+    "electron-store": "^6.0.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -27,15 +29,15 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "craco eject",
     "dev": "concurrently -k \"cross-env BROWSER=none npm start\" \"npm:electron\"",
     "electron": "wait-on tcp:3000 && electron-forge start",
     "styleguide": "cross-env NODE_ENV=development styleguidist server --config src/styleguide.config.js",
-    "package": "react-scripts build && electron-forge package",
-    "make": "react-scripts build && electron-forge make"
+    "package": "craco build && electron-forge package",
+    "make": "craco build && electron-forge make"
   },
   "eslintConfig": {
     "extends": [
