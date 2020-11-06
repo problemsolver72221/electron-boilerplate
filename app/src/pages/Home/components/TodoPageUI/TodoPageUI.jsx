@@ -57,13 +57,15 @@ class TodoPageUI extends React.PureComponent {
     }
 
     handleEditModal = (todoId) => {
-        const { list } = this.state
-        const selectedTodo = list.filter(item => item.todo_id === todoId)
-        this.setState({ editModal: true, editTodoId: todoId, editInputValue: selectedTodo[0].description })
-        console.log(this.state)
+        console.log('handle modal with todoId:', todoId)
+        // const { list } = this.state
+        // const selectedTodo = list.filter(item => item.todo_id === todoId)
+        // this.setState({ editModal: true, editTodoId: todoId, editInputValue: selectedTodo[0].description })
+        // console.log(this.state)
     }
 
     handleTodoUpdate = (val) => {
+        return console.log('update this one', val)
         const { list, editTodoId } = this.state
 
         if (val.length === 0) return this.setState({ editErrorMsg: 'Please enter at least one character' })

@@ -33,6 +33,15 @@ export const addTodo = (val) => async (dispatch, getState) => {
     dispatch(setList(newTodos))
 }
 
+export const updateTodo = (val) => async (dispatch, getState) => {
+    console.log('val here', val)
+    const { todos } = getState()
+    // console.log('todos here!', todos)
+    const newTodos = [...todos.list, val]
+    // console.log('new ones', newTodos)
+    dispatch(setList(newTodos))
+}
+
 export const toggleValue = (val) => async (dispatch) => {
     console.log('val here', val)
     dispatch(toggleSomething(val))
