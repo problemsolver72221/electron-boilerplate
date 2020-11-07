@@ -1,3 +1,6 @@
+// handles managing json based database.
+// json file is saved in corresponding OS app data folder
+
 const Store = require('electron-store');
 
 // set the schema of json db:

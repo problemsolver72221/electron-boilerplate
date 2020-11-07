@@ -9,7 +9,10 @@ import {
     deleteTodo,
 } from '../../features/feature-todo/services/todo.service'
 
+import { openExport } from '../../services'
+
 import TodoPageUI from './components/TodoPageUI'
+import DataOptionsTab from '../../components/DataOptionsTab'
 
 const mapState = ({ todos }) => ({
     list: todos.list,
@@ -44,11 +47,23 @@ class Home extends Component {
         isLoading: false,
     }
 
+    handleExport = () => {
+        console.log('export the data now')
+        // pass the output name of json file to export function:
+        openExport('todos')
+    }
+
     render() {
         const { list, addTodo, updateTodo, deleteTodo } = this.props
         return (
             <div style={{ padding: 15 }}>
-                <h2>Todo list</h2>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+                    <h2>Todo list</h2>
+                    <DataOptionsTab
+                        onExport={this.handleExport}
+                        onImport={() => console.log('import existing user data')}
+                    />
+                </div>
                 <TodoPageUI
                     list={list}
                     onOpen={() => console.log('hi')}

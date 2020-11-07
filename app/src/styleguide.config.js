@@ -16,6 +16,7 @@ module.exports = {
                 './components/Input/Input.jsx',
                 './components/Button/Button.jsx',
                 './components/AddTodo/AddTodo.jsx',
+                './components/DataOptionsTab/DataOptionsTab.jsx',
             ],
         },
         {
