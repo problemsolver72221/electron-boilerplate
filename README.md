@@ -24,6 +24,6 @@ Runs the React styleguide server.
 
 ### `npm run make`
 
-Builds the app for production to the `build` folder.
-You will find the package installer related files inside `out` folder.
+Builds the app for production to the `build` folder.\
+You will find the package installer related files inside `out` folder.\
 To install the app, use `yourAppName Setup.exe` file inside `out/make/` folder.
