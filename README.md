@@ -16,14 +16,14 @@
 
 ### `npm run dev`
 
-Runs the app in the development mode.\
+Runs the app in the development mode.
 
 ### `npm run styleguide`
 
-Runs the styleguide server.\
+Runs the React styleguide server.
 
 ### `npm run make`
 
-Builds the app for production to the `build` folder.\
-You will find the package installer related files inside `out` folder.\
-To install the app, use `yourAppName Setup.exe` file inside `out/make/` folder.\
+Builds the app for production to the `build` folder.
+You will find the package installer related files inside `out` folder.
+To install the app, use `yourAppName Setup.exe` file inside `out/make/` folder.
